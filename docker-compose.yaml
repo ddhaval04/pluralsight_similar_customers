@@ -1,0 +1,24 @@
+version: '3.4'
+services:
+  devbox: &devbox
+    image: 'pluralsight-customer-similarity-serving:0.1'
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: .
+    volumes:
+      - .:/pluralsight_similar_customers
+    environment:
+      - FLASK_ENV='development'
+      - PYTHONUNBUFFERED=0
+    command: /bin/bash
+  test:
+    <<: *devbox
+    command: "python -m pytest -v tests/"
+  app:
+    <<: *devbox
+    ports:
+      - "5000:5000"
+    command: "python run.py"
+  train:
+    <<: *devbox
+    command: "python -u train.py"

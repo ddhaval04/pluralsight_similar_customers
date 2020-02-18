@@ -1,0 +1,7 @@
+trained_models/*
+__pycache__/
+.pytest_cache/
+scripts/*
+
+*.pyc
+*.swp
